@@ -7,40 +7,13 @@
         android:layout_height="match_parent"
         tools:context=".MainActivity">
 
-    <ImageView
-            android:id="@+id/iv_bg"
-            android:scaleType="centerCrop"
+    <fragment
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
-    <androidx.viewpager.widget.ViewPager
-            android:overScrollMode="never"
-            android:id="@+id/view_pager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-    </androidx.viewpager.widget.ViewPager>
-
-    <FrameLayout
-            android:id="@+id/fl_list"
-            android:alpha="0"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        <ImageView
-                android:id="@+id/iv_blur"
-                android:scaleType="centerCrop"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
-        <com.yzune.ipcdemo.MyRecyclerView
-                android:overScrollMode="never"
-                android:id="@+id/recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-        </com.yzune.ipcdemo.MyRecyclerView>
-    </FrameLayout>
+            android:layout_height="match_parent"
+            android:id="@+id/nav_fragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            app:navGraph="@navigation/demo"
+            app:defaultNavHost="true" />
 
 
 </FrameLayout>
