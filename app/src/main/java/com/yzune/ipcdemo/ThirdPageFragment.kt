@@ -13,13 +13,25 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintProperties.PARENT_ID
 import androidx.constraintlayout.widget.ConstraintProperties.WRAP_CONTENT
 import kotlinx.android.synthetic.main.fragment_third_page.*
-import org.jetbrains.anko.backgroundColorResource
 import org.jetbrains.anko.support.v4.dip
-import org.jetbrains.anko.textColor
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.provider.Settings
+import android.view.MotionEvent
+import androidx.core.view.get
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.afollestad.dragselectrecyclerview.DragSelectReceiver
+import com.afollestad.dragselectrecyclerview.DragSelectTouchListener
+import com.afollestad.dragselectrecyclerview.Mode
+import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.listener.OnItemClickListener
+import org.jetbrains.anko.*
+import org.jetbrains.anko.sdk27.coroutines.onTouch
+import java.util.*
+import kotlin.collections.HashSet
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -36,6 +48,8 @@ class ThirdPageFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+
+    private val data = (1..30).toMutableList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,20 +71,103 @@ class ThirdPageFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val width = resources.displayMetrics.widthPixels
         Log.d("宽度", "$width")
-        val textView = TextView(context).apply {
-            text = android.os.Build.BRAND
-            textColor = Color.WHITE
-            backgroundColorResource = R.color.colorAccent
+//        val textView = TextView(context).apply {
+//            text = android.os.Build.BRAND
+//            textColor = Color.WHITE
+//            backgroundColorResource = R.color.colorAccent
+//        }
+//        cl_page.addView(textView, 0, ConstraintLayout.LayoutParams(width / 6, WRAP_CONTENT).apply {
+//            startToStart = PARENT_ID
+//            topToTop = PARENT_ID
+//            marginStart = dip(16)
+//            topMargin = dip(16)
+//        })
+//        textView.setOnClickListener {
+//            SettingUtil.onViewClicked(SettingUtil.getDeviceType(), context)
+//        }
+        val adapter = SimpleAdapter(R.layout.item_number, 30, data)
+        adapter.bindToRecyclerView(rv_select)
+        rv_select.layoutManager = StaggeredGridLayoutManager(5, StaggeredGridLayoutManager.VERTICAL)
+        var prePos = -1
+        rv_select.positionChangedListener = object : MyRecyclerView.PositionChangedListener {
+            override fun changeState(pos: Int, isDown: Boolean) {
+                if (prePos != pos || isDown) {
+                    Log.d("位置", "$pos")
+                    if (pos in 0 until 30) {
+                        if (!data.contains(pos + 1)) {
+                            data.add(pos + 1)
+                            adapter.getViewByPosition(pos, R.id.tv_num)?.backgroundResource =
+                                R.drawable.week_selected_bg
+                            (adapter.getViewByPosition(pos, R.id.tv_num) as TextView).textColor =
+                                Color.WHITE
+                        } else {
+                            data.remove(pos + 1)
+                            adapter.getViewByPosition(pos, R.id.tv_num)?.background = null
+                            (adapter.getViewByPosition(pos, R.id.tv_num) as TextView).textColor =
+                                Color.BLACK
+                        }
+                    }
+                    if (prePos != pos) {
+                        prePos = pos
+                    }
+                }
+            }
         }
-        cl_page.addView(textView, 0, ConstraintLayout.LayoutParams(width / 6, WRAP_CONTENT).apply {
-            startToStart = PARENT_ID
-            topToTop = PARENT_ID
-            marginStart = dip(16)
-            topMargin = dip(16)
-        })
-        textView.setOnClickListener {
-            SettingUtil.onViewClicked(SettingUtil.getDeviceType(), context)
+//        val touchListener = DragSelectTouchListener.create(context!!, object : DragSelectReceiver {
+//            override fun getItemCount(): Int {
+//                return 30
+//            }
+//
+//            override fun isIndexSelectable(index: Int): Boolean {
+//                return true
+//            }
+//
+//            override fun isSelected(index: Int): Boolean {
+//                return data.contains(index + 1)
+//            }
+//
+//            override fun setSelected(index: Int, selected: Boolean) {
+//                if (selected && !data.contains(index + 1)) {
+//                    data.add(index + 1)
+//                    adapter.getViewByPosition(index, R.id.tv_num)?.backgroundResource =
+//                        R.drawable.week_selected_bg
+//                    (adapter.getViewByPosition(index, R.id.tv_num) as TextView).textColor =
+//                        Color.WHITE
+//                } else if (!selected) {
+//                    data.remove(index + 1)
+//                    adapter.getViewByPosition(index, R.id.tv_num)?.background = null
+//                    (adapter.getViewByPosition(index, R.id.tv_num) as TextView).textColor =
+//                        Color.BLACK
+//                }
+//            }
+//
+//        }).apply {
+//            mode = Mode.PATH
+//        }
+//        rv_select.addOnItemTouchListener(touchListener) // important!!
+//        adapter.setOnItemChildClickListener { _, itemView, position ->
+//            touchListener.setIsActive(true, position)
+//        }
+
+        val itemLen = dip(300) / 5
+
+        fun changeState(index: Int) {
+            Log.d("坐标", "$index")
+//            if (!data.contains(index + 1)) {
+//                data.add(index + 1)
+//                adapter.getViewByPosition(index, R.id.tv_num)?.backgroundResource =
+//                    R.drawable.week_selected_bg
+//                (adapter.getViewByPosition(index, R.id.tv_num) as TextView).textColor =
+//                    Color.WHITE
+//            } else {
+//                data.remove(index + 1)
+//                adapter.getViewByPosition(index, R.id.tv_num)?.background = null
+//                (adapter.getViewByPosition(index, R.id.tv_num) as TextView).textColor =
+//                    Color.BLACK
+//            }
         }
+
+
     }
 
     private fun goHuaWeiManager() {
