@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/cl_page"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ThirdPageFragment">
 
     <com.yzune.ipcdemo.MyRecyclerView
+            android:layout_margin="8dp"
             android:overScrollMode="never"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             android:id="@+id/rv_select"
-            android:layout_width="300dp"
-            android:layout_height="match_parent">
+            android:layout_width="280dp"
+            android:layout_height="wrap_content">
 
     </com.yzune.ipcdemo.MyRecyclerView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

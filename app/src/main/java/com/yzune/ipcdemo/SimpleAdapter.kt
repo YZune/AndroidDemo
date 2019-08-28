@@ -17,6 +17,5 @@ class SimpleAdapter(layoutResId: Int, max: Int, private val intData: List<Int>) 
             helper.setTextColor(R.id.tv_num, Color.BLACK)
             helper.getView<TextView>(R.id.tv_num).background = null
         }
-        helper.addOnClickListener(R.id.tv_num)
     }
 }

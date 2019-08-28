@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import kotlinx.android.synthetic.main.fragment_third_page.*
 
 class MyRecyclerView(context: Context, attr: AttributeSet?, int: Int) :
@@ -15,9 +16,22 @@ class MyRecyclerView(context: Context, attr: AttributeSet?, int: Int) :
 
     var positionChangedListener: PositionChangedListener? = null
 
-    private fun calPosition(x: Int, y: Int): Int {
-        return x / (width / 5) + y / (width / 5) * 5
+    private var spanCount = 1
+
+    override fun setLayoutManager(layout: LayoutManager?) {
+        super.setLayoutManager(layout)
+        if (layout is StaggeredGridLayoutManager) {
+            spanCount = (layoutManager as StaggeredGridLayoutManager).spanCount
+        }
     }
+
+    private fun calPosition(x: Int, y: Int): Int {
+        return x / (width / spanCount) + y / (width / spanCount) * spanCount
+    }
+
+//    override fun onInterceptTouchEvent(e: MotionEvent?): Boolean {
+//        return true
+//    }
 
     override fun onTouchEvent(e: MotionEvent): Boolean {
         if (e.action == MotionEvent.ACTION_DOWN) {

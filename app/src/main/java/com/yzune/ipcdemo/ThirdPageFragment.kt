@@ -1,6 +1,5 @@
 package com.yzune.ipcdemo
 
-
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -32,7 +31,6 @@ import org.jetbrains.anko.*
 import org.jetbrains.anko.sdk27.coroutines.onTouch
 import java.util.*
 import kotlin.collections.HashSet
-
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -87,7 +85,7 @@ class ThirdPageFragment : Fragment() {
 //        }
         val adapter = SimpleAdapter(R.layout.item_number, 30, data)
         adapter.bindToRecyclerView(rv_select)
-        rv_select.layoutManager = StaggeredGridLayoutManager(5, StaggeredGridLayoutManager.VERTICAL)
+        rv_select.layoutManager = StaggeredGridLayoutManager(6, StaggeredGridLayoutManager.VERTICAL)
         var prePos = -1
         rv_select.positionChangedListener = object : MyRecyclerView.PositionChangedListener {
             override fun changeState(pos: Int, isDown: Boolean) {
@@ -113,61 +111,6 @@ class ThirdPageFragment : Fragment() {
                 }
             }
         }
-//        val touchListener = DragSelectTouchListener.create(context!!, object : DragSelectReceiver {
-//            override fun getItemCount(): Int {
-//                return 30
-//            }
-//
-//            override fun isIndexSelectable(index: Int): Boolean {
-//                return true
-//            }
-//
-//            override fun isSelected(index: Int): Boolean {
-//                return data.contains(index + 1)
-//            }
-//
-//            override fun setSelected(index: Int, selected: Boolean) {
-//                if (selected && !data.contains(index + 1)) {
-//                    data.add(index + 1)
-//                    adapter.getViewByPosition(index, R.id.tv_num)?.backgroundResource =
-//                        R.drawable.week_selected_bg
-//                    (adapter.getViewByPosition(index, R.id.tv_num) as TextView).textColor =
-//                        Color.WHITE
-//                } else if (!selected) {
-//                    data.remove(index + 1)
-//                    adapter.getViewByPosition(index, R.id.tv_num)?.background = null
-//                    (adapter.getViewByPosition(index, R.id.tv_num) as TextView).textColor =
-//                        Color.BLACK
-//                }
-//            }
-//
-//        }).apply {
-//            mode = Mode.PATH
-//        }
-//        rv_select.addOnItemTouchListener(touchListener) // important!!
-//        adapter.setOnItemChildClickListener { _, itemView, position ->
-//            touchListener.setIsActive(true, position)
-//        }
-
-        val itemLen = dip(300) / 5
-
-        fun changeState(index: Int) {
-            Log.d("坐标", "$index")
-//            if (!data.contains(index + 1)) {
-//                data.add(index + 1)
-//                adapter.getViewByPosition(index, R.id.tv_num)?.backgroundResource =
-//                    R.drawable.week_selected_bg
-//                (adapter.getViewByPosition(index, R.id.tv_num) as TextView).textColor =
-//                    Color.WHITE
-//            } else {
-//                data.remove(index + 1)
-//                adapter.getViewByPosition(index, R.id.tv_num)?.background = null
-//                (adapter.getViewByPosition(index, R.id.tv_num) as TextView).textColor =
-//                    Color.BLACK
-//            }
-        }
-
-
     }
 
     private fun goHuaWeiManager() {
