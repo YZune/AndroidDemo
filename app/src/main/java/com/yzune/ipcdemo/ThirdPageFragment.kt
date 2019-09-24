@@ -27,6 +27,7 @@ import com.afollestad.dragselectrecyclerview.DragSelectTouchListener
 import com.afollestad.dragselectrecyclerview.Mode
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.listener.OnItemClickListener
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.jetbrains.anko.*
 import org.jetbrains.anko.sdk27.coroutines.onTouch
 import java.util.*
@@ -42,12 +43,12 @@ private const val ARG_PARAM2 = "param2"
  * Use the [ThirdPageFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ThirdPageFragment : Fragment() {
+class ThirdPageFragment : BottomSheetDialogFragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
 
-    private val data = (1..30).toMutableList()
+    private val data = (1..90).toMutableList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,7 +84,7 @@ class ThirdPageFragment : Fragment() {
 //        textView.setOnClickListener {
 //            SettingUtil.onViewClicked(SettingUtil.getDeviceType(), context)
 //        }
-        val adapter = SimpleAdapter(R.layout.item_number, 30, data)
+        val adapter = SimpleAdapter(R.layout.item_number, 90, data)
         adapter.bindToRecyclerView(rv_select)
         rv_select.layoutManager = StaggeredGridLayoutManager(6, StaggeredGridLayoutManager.VERTICAL)
         var prePos = -1
@@ -91,7 +92,7 @@ class ThirdPageFragment : Fragment() {
             override fun changeState(pos: Int, isDown: Boolean) {
                 if (prePos != pos || isDown) {
                     Log.d("位置", "$pos")
-                    if (pos in 0 until 30) {
+                    if (pos in 0 until 90) {
                         if (!data.contains(pos + 1)) {
                             data.add(pos + 1)
                             adapter.getViewByPosition(pos, R.id.tv_num)?.backgroundResource =
@@ -165,7 +166,7 @@ class ThirdPageFragment : Fragment() {
                 "com.coloros.oppoguardelf",
                 "com.coloros.powermanager.fuelgaue.PowerUsageModelActivity"
             )
-            "360" -> componentName = ComponentName(
+            "390" -> componentName = ComponentName(
                 "com.yulong.android.coolsafe",
                 "com.yulong.android.coolsafe.ui.activity.autorun.AutoRunListActivity"
             )

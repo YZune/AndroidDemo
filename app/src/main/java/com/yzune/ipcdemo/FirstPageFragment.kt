@@ -42,14 +42,16 @@ class FirstPageFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         btn_go2.setOnClickListener {
             Navigation.findNavController(view)
                 .navigate(R.id.action_firstPageFragment_to_secondPageFragment)
         }
 
         btn_go3.setOnClickListener {
-            Navigation.findNavController(view)
-                .navigate(R.id.action_firstPageFragment_to_thirdPageFragment)
+//            Navigation.findNavController(view)
+//                .navigate(R.id.action_firstPageFragment_to_thirdPageFragment)
+            ThirdPageFragment.newInstance("", "").show(fragmentManager!!, null)
         }
     }
 

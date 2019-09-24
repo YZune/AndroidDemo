@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical"
         android:layout_height="match_parent"
         android:splitMotionEvents="false"
@@ -9,10 +10,19 @@
         tools:context=".FirstPageFragment">
 
     <!-- TODO: Update blank fragment layout -->
+    <com.yzune.ipcdemo.MyTextView
+            android:background="@color/colorPrimary"
+            android:padding="8dp"
+            android:layout_width="60dp"
+            android:layout_height="160dp"/>
+
     <TextView
-            android:layout_width="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textSize="16sp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="First Page Here" />
+            android:text="在Android开发中" />
 
     <Button
             android:id="@+id/btn_go2"
