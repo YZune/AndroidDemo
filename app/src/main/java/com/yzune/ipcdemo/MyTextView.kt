@@ -19,8 +19,11 @@ class MyTextView(
     constructor(context: Context, attributeSet: AttributeSet?) : this(context, attributeSet, 0)
     constructor(context: Context) : this(context, null)
 
-    private var mText =
-        "在啦啦啦开发中处理了文字换行的问题"
+    var mText = ""
+    set(value) {
+        field = value
+        invalidate()
+    }
 
     private val mTextPaint = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
         textSize = 12 * resources.displayMetrics.density
@@ -44,7 +47,7 @@ class MyTextView(
             mStaticLayout = StaticLayout(
                 mText,
                 mTextPaint,
-                width - paddingRight,
+                width - paddingRight - paddingLeft,
                 Layout.Alignment.ALIGN_NORMAL,
                 1.0f,
                 0f,

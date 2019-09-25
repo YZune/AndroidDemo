@@ -1,13 +1,21 @@
 package com.yzune.ipcdemo
 
 
+import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewGroup.LayoutParams.MATCH_PARENT
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.fragment_first_page.*
+import org.jetbrains.anko.backgroundColorResource
+import org.jetbrains.anko.support.v4.dip
+import org.jetbrains.anko.support.v4.longToast
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -42,14 +50,25 @@ class FirstPageFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        val start = System.currentTimeMillis()
+        repeat(3) {
+            val tv = MyTextView(context!!)
+            tv.mText = "在啦啦啦开发中处理了文字换行的问题"
+            val lp = LinearLayout.LayoutParams(MATCH_PARENT, dip(120))
+            tv.layoutParams = lp
+            tv.backgroundColorResource = R.color.colorAccent
+            ll_test.addView(tv)
+        }
+        val end = System.currentTimeMillis()
+        longToast("${end - start} ms")
+        // my_text.mText = "在啦啦啦开发中处理了文字换行的问题"
         btn_go2.setOnClickListener {
             Navigation.findNavController(view)
                 .navigate(R.id.action_firstPageFragment_to_secondPageFragment)
         }
 
         btn_go3.setOnClickListener {
-//            Navigation.findNavController(view)
+            //            Navigation.findNavController(view)
 //                .navigate(R.id.action_firstPageFragment_to_thirdPageFragment)
             ThirdPageFragment.newInstance("", "").show(fragmentManager!!, null)
         }
